@@ -1,9 +1,9 @@
 Package: com.zjx.ioscontrol
-Name: ZXTouch
-Version: 1.0.1
+Name: bunAuto
+Version: 1.0.1+bun1
 Depends: mobilesubstrate | ellekit, firmware (>= 15.0)
 Architecture: iphoneos-arm64
-Description: ZXTouch Main Application (iOS 15-18)
+Description: bunAuto - tu dong thao tac (dua tren ZXTouch Rootless, GPL-3.0)
 Maintainer: Jason Z
 Author: Jason Z
 Section: Utilities

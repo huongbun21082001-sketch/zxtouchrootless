@@ -120,8 +120,8 @@
                         </constraints>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Scripts" id="GBn-9Q-Fvw">
-                        <barButtonItem key="leftBarButtonItem" title="Log" id="v4M-kr-sq3">
+                    <navigationItem key="navigationItem" title="Kịch bản" id="GBn-9Q-Fvw">
+                        <barButtonItem key="leftBarButtonItem" title="Nhật ký" id="v4M-kr-sq3">
                             <connections>
                                 <action selector="logButtonClick:" destination="8jf-LX-yKd" id="io8-dm-rw7"/>
                             </connections>
@@ -168,7 +168,7 @@
                             <constraint firstItem="owK-Cn-gTP" firstAttribute="centerX" secondItem="jdt-df-Nff" secondAttribute="centerX" id="weA-du-8tj"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Settings" id="IRD-wc-3dP"/>
+                    <navigationItem key="navigationItem" title="Cài đặt" id="IRD-wc-3dP"/>
                     <connections>
                         <outlet property="settingsTableView" destination="owK-Cn-gTP" id="nvb-hO-shl"/>
                         <outlet property="tableView" destination="owK-Cn-gTP" id="6rf-iH-7x0"/>
@@ -182,7 +182,7 @@
         <scene sceneID="y1W-dS-syM">
             <objects>
                 <navigationController id="RRe-uJ-cBb" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Scripts" image="list.dash" catalog="system" id="VoC-cu-PEt"/>
+                    <tabBarItem key="tabBarItem" title="Kịch bản" image="list.dash" catalog="system" id="VoC-cu-PEt"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="oeA-hD-GKb">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -199,7 +199,7 @@
         <scene sceneID="vIs-vF-6sA">
             <objects>
                 <navigationController id="Vci-1U-nkf" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Settings" image="gear" catalog="system" id="78e-iB-1fm"/>
+                    <tabBarItem key="tabBarItem" title="Cài đặt" image="gear" catalog="system" id="78e-iB-1fm"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="1gO-wx-Cgt">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

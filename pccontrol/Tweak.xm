@@ -174,7 +174,7 @@ static void runConfiguredTriggerAction(NSString *action, NSString *scriptPath)
     {
         NSError *err = nil;
         stopScriptPlaying(&err);
-        showAlertBox(@"ZXTouch", @"Script stopped.", 1);
+        showAlertBox(@"bunAuto", @"Đã dừng kịch bản.", 1);
         return;
     }
 
@@ -183,14 +183,14 @@ static void runConfiguredTriggerAction(NSString *action, NSString *scriptPath)
         if (isRecordingStart())
         {
             stopRecording();
-            showAlertBox(@"ZXTouch", @"Recording stopped and saved.", 1);
+            showAlertBox(@"bunAuto", @"Đã dừng ghi và lưu.", 1);
         }
         else
         {
             NSError *err = nil;
             startRecording(0, &err);
             if (err) showAlertBox(@"Error", [NSString stringWithFormat:@"Unable to start recording: %@", [err localizedDescription]], 999);
-            else showAlertBox(@"ZXTouch", @"Recording started.", 1);
+            else showAlertBox(@"bunAuto", @"Bắt đầu ghi.", 1);
         }
         return;
     }
@@ -205,7 +205,7 @@ static void runConfiguredTriggerAction(NSString *action, NSString *scriptPath)
         }
         else
         {
-            showAlertBox(@"ZXTouch", @"No default trigger script is set.", 2);
+            showAlertBox(@"bunAuto", @"Chưa đặt kịch bản mặc định.", 2);
         }
         return;
     }
@@ -220,13 +220,13 @@ static void runConfiguredTriggerAction(NSString *action, NSString *scriptPath)
     {
         NSError *err = nil;
         stopScriptPlaying(&err);
-        showAlertBox(@"ZXTouch", @"Script stopped.", 1);
+        showAlertBox(@"bunAuto", @"Đã dừng kịch bản.", 1);
         return;
     }
     if (isRecordingStart())
     {
         stopRecording();
-        showAlertBox(@"ZXTouch", @"Recording stopped and saved.", 1);
+        showAlertBox(@"bunAuto", @"Đã dừng ghi và lưu.", 1);
         [popupWindow show];
         return;
     }

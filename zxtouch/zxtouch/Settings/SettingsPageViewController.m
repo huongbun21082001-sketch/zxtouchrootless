@@ -143,16 +143,16 @@ static UIImage *ZXSettingsSymbol(NSString *name) {
 }
 
 - (NSString *)iconNameForCellTitle:(NSString *)title {
-    if ([title containsString:@"Web"]) return @"globe";
-    if ([title containsString:@"Touch"]) return @"hand.tap";
+    if ([title containsString:@"Web"] || [title containsString:@"web"]) return @"globe";
+    if ([title containsString:@"chạm"] || [title containsString:@"Touch"]) return @"hand.tap";
     if ([title containsString:@"Double-click"]) return @"bolt.badge.clock";
-    if ([title containsString:@"Volume"]) return @"speaker.wave.2";
+    if ([title containsString:@"âm lượng"]) return @"speaker.wave.2";
     if ([title containsString:@"Default Trigger"]) return @"play.square.stack";
-    if ([title containsString:@"Switch App"]) return @"arrow.triangle.2.circlepath";
-    if ([title containsString:@"Example"]) return @"folder";
-    if ([title containsString:@"Registry"]) return @"list.bullet.rectangle";
-    if ([title containsString:@"Dark"]) return @"moon";
-    if ([title containsString:@"ZXTouch"]) return @"info.circle";
+    if ([title containsString:@"Chuyển app"]) return @"arrow.triangle.2.circlepath";
+    if ([title containsString:@"mẫu"]) return @"folder";
+    if ([title containsString:@"Danh mục"]) return @"list.bullet.rectangle";
+    if ([title containsString:@"tối"]) return @"moon";
+    if ([title containsString:@"bunAuto"]) return @"info.circle";
     return @"gearshape";
 }
 
@@ -167,8 +167,8 @@ static UIImage *ZXSettingsSymbol(NSString *name) {
     if (enabled) {
         [cells addObject:@{
             @"type": @(SETTING_CELL_ENTRY),
-            @"title": @"Dashboard URL",
-            @"secondary_title": @"Tap to view and copy",
+            @"title": @"Địa chỉ trang web",
+            @"secondary_title": @"Chạm để xem và chép",
             @"row_click_handler": NSStringFromSelector(@selector(handleDashboardURLTap:))
         }];
     }
@@ -178,9 +178,9 @@ static UIImage *ZXSettingsSymbol(NSString *name) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"Settings";
+    self.title = @"Cài đặt";
     
-    sections = @[NSLocalizedString(@"remoteManagement", nil), NSLocalizedString(@"control", nil), @"Automation", NSLocalizedString(@"script", nil), @"Appearance", @"About"];
+    sections = @[NSLocalizedString(@"remoteManagement", nil), NSLocalizedString(@"control", nil), @"Tự động", NSLocalizedString(@"script", nil), @"Giao diện", @"Giới thiệu"];
     configManager = [[ConfigManager alloc] initWithPath:SPRINGBOARD_CONFIG_PATH];
     BOOL doubleClickPopup = YES;
     if ([configManager getValueFromKey:@"double_click_volume_show_popup"])
@@ -211,21 +211,21 @@ static UIImage *ZXSettingsSymbol(NSString *name) {
             @{@"type": @(SETTING_CELL_SWITCH), @"title": NSLocalizedString(@"doubleClickShowPopup", nil), @"switch_click_handler": NSStringFromSelector(@selector(handlePopupWindowDoubleClick:)), @"switch_init_status": @(doubleClickPopup)}
         ],
         @[
-            @{@"type": @(SETTING_CELL_ENTRY), @"title": @"Volume Up", @"secondary_title": [self triggerSummaryForKey:ZX_TRIGGER_VOLUME_UP], @"trigger_key": ZX_TRIGGER_VOLUME_UP, @"row_click_handler": NSStringFromSelector(@selector(handleTriggerTap:))},
-            @{@"type": @(SETTING_CELL_ENTRY), @"title": @"Volume Down", @"secondary_title": [self triggerSummaryForKey:ZX_TRIGGER_VOLUME_DOWN], @"trigger_key": ZX_TRIGGER_VOLUME_DOWN, @"row_click_handler": NSStringFromSelector(@selector(handleTriggerTap:))},
-            @{@"type": @(SETTING_CELL_ENTRY), @"title": @"Home Button", @"secondary_title": [self triggerSummaryForKey:ZX_TRIGGER_HOME], @"trigger_key": ZX_TRIGGER_HOME, @"row_click_handler": NSStringFromSelector(@selector(handleTriggerTap:))}
+            @{@"type": @(SETTING_CELL_ENTRY), @"title": @"Tăng âm lượng", @"secondary_title": [self triggerSummaryForKey:ZX_TRIGGER_VOLUME_UP], @"trigger_key": ZX_TRIGGER_VOLUME_UP, @"row_click_handler": NSStringFromSelector(@selector(handleTriggerTap:))},
+            @{@"type": @(SETTING_CELL_ENTRY), @"title": @"Giảm âm lượng", @"secondary_title": [self triggerSummaryForKey:ZX_TRIGGER_VOLUME_DOWN], @"trigger_key": ZX_TRIGGER_VOLUME_DOWN, @"row_click_handler": NSStringFromSelector(@selector(handleTriggerTap:))},
+            @{@"type": @(SETTING_CELL_ENTRY), @"title": @"Nút Home", @"secondary_title": [self triggerSummaryForKey:ZX_TRIGGER_HOME], @"trigger_key": ZX_TRIGGER_HOME, @"row_click_handler": NSStringFromSelector(@selector(handleTriggerTap:))}
         ],
         @[
             @{@"type": @(SETTING_CELL_SWITCH), @"title": NSLocalizedString(@"switchAppBeforePlaying", nil), @"switch_click_handler": NSStringFromSelector(@selector(handleSwitchAppBeforePlaying:)), @"switch_init_status": @(switchAppBeforeRunScript)},
-            @{@"type": @(SETTING_CELL_SWITCH), @"title": @"Script Finished Popup", @"switch_click_handler": NSStringFromSelector(@selector(handleScriptFinishedPopupToggle:)), @"switch_init_status": @(showFinishedPopup)},
-            @{@"type": @(SETTING_CELL_ENTRY), @"title": @"Example Scripts", @"secondary_title": EXAMPLE_SCRIPTS_PATH, @"row_click_handler": NSStringFromSelector(@selector(handleExamplesTap:))},
-            @{@"type": @(SETTING_CELL_ENTRY), @"title": @"Script Registry", @"secondary_title": SCRIPT_REGISTRY_PATH, @"row_click_handler": NSStringFromSelector(@selector(handleRegistryTap:))}
+            @{@"type": @(SETTING_CELL_SWITCH), @"title": @"Báo khi chạy xong", @"switch_click_handler": NSStringFromSelector(@selector(handleScriptFinishedPopupToggle:)), @"switch_init_status": @(showFinishedPopup)},
+            @{@"type": @(SETTING_CELL_ENTRY), @"title": @"Kịch bản mẫu", @"secondary_title": EXAMPLE_SCRIPTS_PATH, @"row_click_handler": NSStringFromSelector(@selector(handleExamplesTap:))},
+            @{@"type": @(SETTING_CELL_ENTRY), @"title": @"Danh mục kịch bản", @"secondary_title": SCRIPT_REGISTRY_PATH, @"row_click_handler": NSStringFromSelector(@selector(handleRegistryTap:))}
         ],
         @[
-            @{@"type": @(SETTING_CELL_SWITCH), @"title": @"Dark Mode", @"switch_click_handler": NSStringFromSelector(@selector(handleDarkModeToggle:)), @"switch_init_status": @(darkMode)}
+            @{@"type": @(SETTING_CELL_SWITCH), @"title": @"Chế độ tối", @"switch_click_handler": NSStringFromSelector(@selector(handleDarkModeToggle:)), @"switch_init_status": @(darkMode)}
         ],
         @[
-            @{@"type": @(SETTING_CELL_ENTRY), @"title": @"ZXTouch Rootless 1.0.1", @"secondary_title": @"iOS 15-18 port by Epic0001", @"row_click_handler": NSStringFromSelector(@selector(handleCreditsTap:))}
+            @{@"type": @(SETTING_CELL_ENTRY), @"title": @"bunAuto 1.0.1", @"secondary_title": @"Dựa trên ZXTouch - Epic0001", @"row_click_handler": NSStringFromSelector(@selector(handleCreditsTap:))}
         ]
     ];
      
@@ -264,7 +264,7 @@ static UIImage *ZXSettingsSymbol(NSString *name) {
 
     BOOL darkMode = [self darkModeEnabled];
 
-    sections = @[NSLocalizedString(@"remoteManagement", nil), NSLocalizedString(@"control", nil), @"Automation", NSLocalizedString(@"script", nil), @"Appearance", @"About"];
+    sections = @[NSLocalizedString(@"remoteManagement", nil), NSLocalizedString(@"control", nil), @"Tự động", NSLocalizedString(@"script", nil), @"Giao diện", @"Giới thiệu"];
     cellsForEachSection = @[
         [self remoteManagementCells],
         @[
@@ -272,21 +272,21 @@ static UIImage *ZXSettingsSymbol(NSString *name) {
             @{@"type": @(SETTING_CELL_SWITCH), @"title": NSLocalizedString(@"doubleClickShowPopup", nil), @"switch_click_handler": NSStringFromSelector(@selector(handlePopupWindowDoubleClick:)), @"switch_init_status": @(doubleClickPopup)}
         ],
         @[
-            @{@"type": @(SETTING_CELL_ENTRY), @"title": @"Volume Up", @"secondary_title": [self triggerSummaryForKey:ZX_TRIGGER_VOLUME_UP], @"trigger_key": ZX_TRIGGER_VOLUME_UP, @"row_click_handler": NSStringFromSelector(@selector(handleTriggerTap:))},
-            @{@"type": @(SETTING_CELL_ENTRY), @"title": @"Volume Down", @"secondary_title": [self triggerSummaryForKey:ZX_TRIGGER_VOLUME_DOWN], @"trigger_key": ZX_TRIGGER_VOLUME_DOWN, @"row_click_handler": NSStringFromSelector(@selector(handleTriggerTap:))},
-            @{@"type": @(SETTING_CELL_ENTRY), @"title": @"Home Button", @"secondary_title": [self triggerSummaryForKey:ZX_TRIGGER_HOME], @"trigger_key": ZX_TRIGGER_HOME, @"row_click_handler": NSStringFromSelector(@selector(handleTriggerTap:))}
+            @{@"type": @(SETTING_CELL_ENTRY), @"title": @"Tăng âm lượng", @"secondary_title": [self triggerSummaryForKey:ZX_TRIGGER_VOLUME_UP], @"trigger_key": ZX_TRIGGER_VOLUME_UP, @"row_click_handler": NSStringFromSelector(@selector(handleTriggerTap:))},
+            @{@"type": @(SETTING_CELL_ENTRY), @"title": @"Giảm âm lượng", @"secondary_title": [self triggerSummaryForKey:ZX_TRIGGER_VOLUME_DOWN], @"trigger_key": ZX_TRIGGER_VOLUME_DOWN, @"row_click_handler": NSStringFromSelector(@selector(handleTriggerTap:))},
+            @{@"type": @(SETTING_CELL_ENTRY), @"title": @"Nút Home", @"secondary_title": [self triggerSummaryForKey:ZX_TRIGGER_HOME], @"trigger_key": ZX_TRIGGER_HOME, @"row_click_handler": NSStringFromSelector(@selector(handleTriggerTap:))}
         ],
         @[
             @{@"type": @(SETTING_CELL_SWITCH), @"title": NSLocalizedString(@"switchAppBeforePlaying", nil), @"switch_click_handler": NSStringFromSelector(@selector(handleSwitchAppBeforePlaying:)), @"switch_init_status": @(switchAppBeforeRunScript)},
-            @{@"type": @(SETTING_CELL_SWITCH), @"title": @"Script Finished Popup", @"switch_click_handler": NSStringFromSelector(@selector(handleScriptFinishedPopupToggle:)), @"switch_init_status": @(showFinishedPopup)},
-            @{@"type": @(SETTING_CELL_ENTRY), @"title": @"Example Scripts", @"secondary_title": EXAMPLE_SCRIPTS_PATH, @"row_click_handler": NSStringFromSelector(@selector(handleExamplesTap:))},
-            @{@"type": @(SETTING_CELL_ENTRY), @"title": @"Script Registry", @"secondary_title": SCRIPT_REGISTRY_PATH, @"row_click_handler": NSStringFromSelector(@selector(handleRegistryTap:))}
+            @{@"type": @(SETTING_CELL_SWITCH), @"title": @"Báo khi chạy xong", @"switch_click_handler": NSStringFromSelector(@selector(handleScriptFinishedPopupToggle:)), @"switch_init_status": @(showFinishedPopup)},
+            @{@"type": @(SETTING_CELL_ENTRY), @"title": @"Kịch bản mẫu", @"secondary_title": EXAMPLE_SCRIPTS_PATH, @"row_click_handler": NSStringFromSelector(@selector(handleExamplesTap:))},
+            @{@"type": @(SETTING_CELL_ENTRY), @"title": @"Danh mục kịch bản", @"secondary_title": SCRIPT_REGISTRY_PATH, @"row_click_handler": NSStringFromSelector(@selector(handleRegistryTap:))}
         ],
         @[
-            @{@"type": @(SETTING_CELL_SWITCH), @"title": @"Dark Mode", @"switch_click_handler": NSStringFromSelector(@selector(handleDarkModeToggle:)), @"switch_init_status": @(darkMode)}
+            @{@"type": @(SETTING_CELL_SWITCH), @"title": @"Chế độ tối", @"switch_click_handler": NSStringFromSelector(@selector(handleDarkModeToggle:)), @"switch_init_status": @(darkMode)}
         ],
         @[
-            @{@"type": @(SETTING_CELL_ENTRY), @"title": @"ZXTouch Rootless 1.0.1", @"secondary_title": @"iOS 15-18 port by Epic0001", @"row_click_handler": NSStringFromSelector(@selector(handleCreditsTap:))}
+            @{@"type": @(SETTING_CELL_ENTRY), @"title": @"bunAuto 1.0.1", @"secondary_title": @"Dựa trên ZXTouch - Epic0001", @"row_click_handler": NSStringFromSelector(@selector(handleCreditsTap:))}
         ]
     ];
     [_tableView reloadData];
@@ -566,8 +566,8 @@ static UIImage *ZXSettingsSymbol(NSString *name) {
 
 - (void)handleCreditsTap:(TableViewCellWithEntry*)cell {
     // Show a brief about alert
-    [Util showAlertBoxWithOneOption:self title:@"ZXTouch Rootless"
-        message:@"iOS 16 Rootless (Dopamine) port by Epic0001\nhttps://github.com/Epic0001/zxtouchrootless"
+    [Util showAlertBoxWithOneOption:self title:@"bunAuto"
+        message:@"Dựa trên ZXTouch (Jason Z) và bản rootless của Epic0001.\nGiấy phép GPL-3.0.\nhttps://github.com/Epic0001/zxtouchrootless"
         buttonString:@"OK"];
 }
 

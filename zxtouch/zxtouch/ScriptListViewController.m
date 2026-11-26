@@ -42,7 +42,7 @@
 
     LogViewController *logEditorViewController = [[LogViewController alloc] initWithNibName: @"LogViewController" bundle: nil];
     
-    logEditorViewController.title = @"Log";
+    logEditorViewController.title = @"Nhật ký";
     //[logEditorViewController setFile:RUNTIME_OUTPUT_PATH];
 
     [self presentViewController:logEditorViewController animated:YES completion:nil];
@@ -110,7 +110,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = self.title.length ? self.title : @"Scripts";
+    self.title = self.title.length ? self.title : @"Kịch bản";
     if (@available(iOS 11.0, *)) {
         self.navigationController.navigationBar.prefersLargeTitles = YES;
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAutomatic;

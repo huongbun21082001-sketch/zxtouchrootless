@@ -102,15 +102,15 @@ static void styleIconButton(UIButton *button, NSString *symbolName, UIColor *col
 
         // Header
         UILabel *ttl = [[UILabel alloc] initWithFrame:CGRectMake(12,8,pw-104,30)];
-        ttl.text = @"ZXTouch Panel"; ttl.font = [UIFont systemFontOfSize:17 weight:UIFontWeightSemibold];
-        ttl.textColor = [UIColor labelColor]; [cv addSubview:ttl];
+        ttl.text = @"bunAuto"; ttl.font = [UIFont systemFontOfSize:17 weight:UIFontWeightSemibold];
+        ttl.textColor = [UIColor colorWithRed:1.0 green:0.353 blue:0.431 alpha:1.0]; [cv addSubview:ttl];
 
         // ⚙️ toggle — tap to enable/disable "ask settings before play"
         _gearBtn = [UIButton buttonWithType:UIButtonTypeSystem];
         [_gearBtn setTitle:@"⚙️" forState:UIControlStateNormal];
         _gearBtn.frame = CGRectMake(pw-80, 6, 36, 36);
         [_gearBtn setTitle:@"" forState:UIControlStateNormal];
-        styleIconButton(_gearBtn, @"slider.horizontal.3", [UIColor systemBlueColor]);
+        styleIconButton(_gearBtn, @"slider.horizontal.3", [UIColor colorWithRed:1.0 green:0.353 blue:0.431 alpha:1.0]);
         [_gearBtn addAction:[UIAction actionWithTitle:@"" image:nil identifier:nil handler:^(__kindof UIAction *a) {
             _settingsVisible = !_settingsVisible;
             [self updateSettingsButtonAppearance];
@@ -135,7 +135,7 @@ static void styleIconButton(UIButton *button, NSString *symbolName, UIColor *col
         CGFloat btnW = (pw - 24) / 2;
         UIButton *recBtn = makeBtn(@"⏺  REC", [UIColor systemRedColor]);
         recBtn.frame = CGRectMake(8, 54, btnW, BTN_H);
-        [recBtn setTitle:@"Record" forState:UIControlStateNormal];
+        [recBtn setTitle:@"Ghi" forState:UIControlStateNormal];
         [recBtn setImage:panelSymbol(@"record.circle.fill") forState:UIControlStateNormal];
         recBtn.tintColor = [UIColor systemRedColor];
         recBtn.backgroundColor = [UIColor.systemRedColor colorWithAlphaComponent:0.12];
@@ -144,7 +144,7 @@ static void styleIconButton(UIButton *button, NSString *symbolName, UIColor *col
         }] forControlEvents:UIControlEventTouchUpInside];
         [cv addSubview:recBtn];
 
-        UIButton *stopBtn = makeBtn(@"Stop", [UIColor secondaryLabelColor]);
+        UIButton *stopBtn = makeBtn(@"Dừng", [UIColor secondaryLabelColor]);
         stopBtn.frame = CGRectMake(pw/2+4, 54, btnW, BTN_H);
         [stopBtn setImage:panelSymbol(@"stop.fill") forState:UIControlStateNormal];
         stopBtn.tintColor = [UIColor secondaryLabelColor];
@@ -157,7 +157,7 @@ static void styleIconButton(UIButton *button, NSString *symbolName, UIColor *col
 
         // Scripts label — shows hint when settings mode on
         UILabel *sl = [[UILabel alloc] initWithFrame:CGRectMake(12, 54+BTN_H+14, pw-20, 18)];
-        sl.text = @"Scripts"; sl.font = [UIFont systemFontOfSize:12 weight:UIFontWeightSemibold];
+        sl.text = @"Kịch bản"; sl.font = [UIFont systemFontOfSize:12 weight:UIFontWeightSemibold];
         sl.textColor = [UIColor secondaryLabelColor]; [cv addSubview:sl];
 
         // Script scroll view
@@ -236,8 +236,8 @@ void applyPanelDarkMode(BOOL dark) {
         NSString *action = item[@"action"];
         if ([action isEqualToString:@"folder"]) {
             [btn setImage:panelSymbol(@"folder.fill") forState:UIControlStateNormal];
-            btn.tintColor = [UIColor systemBlueColor];
-            [btn setTitleColor:[UIColor systemBlueColor] forState:UIControlStateNormal];
+            btn.tintColor = [UIColor colorWithRed:1.0 green:0.353 blue:0.431 alpha:1.0];
+            [btn setTitleColor:[UIColor colorWithRed:1.0 green:0.353 blue:0.431 alpha:1.0] forState:UIControlStateNormal];
             NSString *fp = item[@"path"], *fn = item[@"folderName"];
             [btn addAction:[UIAction actionWithTitle:@"" image:nil identifier:nil handler:^(__kindof UIAction *a) {
                 [self showFolder:fp name:fn];
@@ -261,25 +261,25 @@ void applyPanelDarkMode(BOOL dark) {
                     _settingsVisible ? @"on" : @"off", fullPath]);
                 if (_settingsVisible) {
                     UIAlertController *alert = [UIAlertController
-                        alertControllerWithTitle:@"Play Settings"
+                        alertControllerWithTitle:@"Cài đặt chạy"
                         message:item[@"label"]
                         preferredStyle:UIAlertControllerStyleAlert];
                     [alert addTextFieldWithConfigurationHandler:^(UITextField *tf) {
-                        tf.placeholder = @"Repeat count (e.g. 3)";
+                        tf.placeholder = @"Số lần lặp (vd 3)";
                         tf.keyboardType = UIKeyboardTypeNumberPad;
                         tf.text = _repeatCount > 0 ? [NSString stringWithFormat:@"%d", _repeatCount] : @"";
                     }];
                     [alert addTextFieldWithConfigurationHandler:^(UITextField *tf) {
-                        tf.placeholder = @"Speed (e.g. 1.0)";
+                        tf.placeholder = @"Tốc độ (vd 1.0)";
                         tf.keyboardType = UIKeyboardTypeDecimalPad;
                         tf.text = [NSString stringWithFormat:@"%.1f", _speed];
                     }];
                     [alert addTextFieldWithConfigurationHandler:^(UITextField *tf) {
-                        tf.placeholder = @"Interval between runs in sec (e.g. 0)";
+                        tf.placeholder = @"Nghỉ giữa các lần, giây (vd 0)";
                         tf.keyboardType = UIKeyboardTypeDecimalPad;
                         tf.text = _interval > 0 ? [NSString stringWithFormat:@"%.1f", _interval] : @"";
                     }];
-                    [alert addAction:[UIAlertAction actionWithTitle:@"Run" style:UIAlertActionStyleDefault handler:^(UIAlertAction *aa) {
+                    [alert addAction:[UIAlertAction actionWithTitle:@"Chạy" style:UIAlertActionStyleDefault handler:^(UIAlertAction *aa) {
                         NSString *repeatStr  = alert.textFields[0].text;
                         NSString *speedStr   = alert.textFields[1].text;
                         NSString *intervalStr = alert.textFields[2].text;
@@ -293,10 +293,10 @@ void applyPanelDarkMode(BOOL dark) {
                         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                             NSError *err = nil;
                             playScriptWithSettings((UInt8*)[fullPath UTF8String], repeat, sp, intv, &err);
-                            if (err) showAlertBox(@"Error", [err localizedDescription], 999);
+                            if (err) showAlertBox(@"Lỗi", [err localizedDescription], 999);
                         });
                     }]];
-                    [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+                    [alert addAction:[UIAlertAction actionWithTitle:@"Hủy" style:UIAlertActionStyleCancel handler:nil]];
                     dispatch_async(dispatch_get_main_queue(), ^{
                         UIViewController *presenter = _window.rootViewController;
                         zxAppendRuntimeLog([NSString stringWithFormat:
@@ -318,7 +318,7 @@ void applyPanelDarkMode(BOOL dark) {
                         zxAppendRuntimeLog([NSString stringWithFormat:
                             @"ZXTouch: panel direct play returned %d%@", rc,
                             err ? [@", error: " stringByAppendingString:[err localizedDescription]] : @""]);
-                        if (err) showAlertBox(@"Error", [err localizedDescription], 999);
+                        if (err) showAlertBox(@"Lỗi", [err localizedDescription], 999);
                     });
                 }
             }] forControlEvents:UIControlEventTouchUpInside];
@@ -352,7 +352,7 @@ void applyPanelDarkMode(BOOL dark) {
     NSArray *contents = [[fm contentsOfDirectoryAtPath:folderPath error:nil]
                          sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
     NSMutableArray *items = [NSMutableArray array];
-    [items addObject:@{@"label": @"← Back", @"action": @"back"}];
+    [items addObject:@{@"label": @"← Quay lại", @"action": @"back"}];
     for (NSString *n in contents) {
         if (![n hasSuffix:@".bdl"]) continue;
         NSString *path = [folderPath stringByAppendingPathComponent:n];
@@ -384,7 +384,7 @@ void applyPanelDarkMode(BOOL dark) {
         [self hide];
         NSError *err = nil;
         startRecording(0, &err);
-        if (err) showAlertBox(@"Error", [NSString stringWithFormat:@"Unable to start recording: %@", [err localizedDescription]], 999);
+        if (err) showAlertBox(@"Lỗi", [NSString stringWithFormat:@"Không bắt đầu ghi được: %@", [err localizedDescription]], 999);
     });
 }
 
@@ -410,7 +410,7 @@ void applyPanelDarkMode(BOOL dark) {
     {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
             stopRecording();
-            showAlertBox(@"ZXTouch", @"Recording stopped and saved.", 1);
+            showAlertBox(@"bunAuto", @"Đã dừng ghi và lưu.", 1);
         });
         return;
     }

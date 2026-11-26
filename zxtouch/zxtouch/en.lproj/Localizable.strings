@@ -5,37 +5,37 @@
   Created by Jason on 2020/12/31.
   
 */
-"prompt" = "Prompt";
-"showPopUpWindow" = "Double click volume down button in any application to show pop-up window.";
-"error" = "Error";
-"createFolderPathNotSet" = "Cannot create folder. Path is NULL. Please contact me on Github or Discord.";
-"createFolderEmptyName" = "Please input folder name.";
-"createFolderAlreadyExists" = "Folder already exists. Please input another folder name.";
-"createFolderFailed" = "Unable to create folder, reason: ";
+"prompt" = "Gợi ý";
+"showPopUpWindow" = "Bấm nhanh 2 lần nút giảm âm lượng ở bất kỳ app nào để mở bảng bunAuto.";
+"error" = "Lỗi";
+"createFolderPathNotSet" = "Không tạo được thư mục: thiếu đường dẫn.";
+"createFolderEmptyName" = "Hãy nhập tên thư mục.";
+"createFolderAlreadyExists" = "Thư mục đã tồn tại. Hãy nhập tên khác.";
+"createFolderFailed" = "Không tạo được thư mục, lý do: ";
 
-"createScriptPathNotSet" = "Unable to create script. Path is NULL. Please contact me on Github or Discord.";
-"createScriptAlreadyExists" = "Unable to create script. Script already exists. Please input another script name.";
-"createScriptFailed" = "Unable to create script, reason: ";
-"createScriptEmptyName" = "Please input script name.";
+"createScriptPathNotSet" = "Không tạo được kịch bản: thiếu đường dẫn.";
+"createScriptAlreadyExists" = "Kịch bản đã tồn tại. Hãy nhập tên khác.";
+"createScriptFailed" = "Không tạo được kịch bản, lý do: ";
+"createScriptEmptyName" = "Hãy nhập tên kịch bản.";
 
-"newFeatures" = "New Fetures";
-"006features" = "1. Added zxtouch python library support (see example scripts)\n2. Bottom/left/right toasts\n3. Added log/add buttons\n4. UI Updates\n5. All example scripts have been updated\n6. Fixes bugs";
+"newFeatures" = "Chào mừng đến bunAuto";
+"006features" = "Bấm giảm âm lượng 2 lần để mở bảng điều khiển.\nGhi thao tác rồi phát lại ngay trên máy.";
 
-"commonSoon" = "Coming soon. Thanks for your patience";
+"commonSoon" = "Sắp có. Cảm ơn bạn đã chờ.";
 
-"webServer" = "Web Server";
-"touchIndicator" = "Touch Indicator";
+"webServer" = "Máy chủ web";
+"touchIndicator" = "Hiện điểm chạm";
 
-"remoteManagement" = "REMOTE MANAGEMENT";
-"control" = "CONTROL";
+"remoteManagement" = "QUẢN LÝ TỪ XA";
+"control" = "ĐIỀU KHIỂN";
 "alpha" = "Alpha";
 
-"speed" = "Play Speed(only supports recording now)";
-"interval" = "Interval(Seconds)";
-"repeatTime" = "Repeat Times";
+"speed" = "Tốc độ phát (chỉ cho bản ghi)";
+"interval" = "Nghỉ giữa các lần (giây)";
+"repeatTime" = "Số lần lặp";
 
-"rename" = "Rename";
-"playSettings" = "Play Settings";
+"rename" = "Đổi tên";
+"playSettings" = "Cài đặt chạy";
 
 "activatorNeedInstall" = "To trigger scripts from activator, you have to install activator in Cydia first";
 "pleaseAssignEvents" = "To configure activator events, please go to \"settings - Activator\" to assign the events that activator send to zxtouch ";
@@ -45,20 +45,20 @@
 
 "setActivatorRunTriggerOnScriptPage" = "Currently, you can only set activator trigger for running a script on script list page. But it will become more convenient in future versions";
 
-"runScript" = "Run Script";
-"showPopup" = "Show/Hide Pop-up Window";
-"stopScriptPlay" = "Stop Script Playing";
+"runScript" = "Chạy kịch bản";
+"showPopup" = "Hiện/ẩn bảng nổi";
+"stopScriptPlay" = "Dừng kịch bản";
 
 "configOnScriptListPage" = "Configure this on script list page";
-"showPopup_description" = "Show or hide ZXTouch Window";
-"stopScriptPlay_description" = "Stop playing all scripts";
+"showPopup_description" = "Hiện hoặc ẩn bảng bunAuto";
+"stopScriptPlay_description" = "Dừng mọi kịch bản đang chạy";
 
-"unassigned" = "Unassigned";
+"unassigned" = "Chưa gán";
 
-"anErrorHappened" = "An error happened. Please try again later.";
+"anErrorHappened" = "Đã xảy ra lỗi. Hãy thử lại sau.";
 
-"switchAppBeforePlaying" = "Switch App Before Playing";
+"switchAppBeforePlaying" = "Chuyển app trước khi chạy";
 
-"script" = "SCRIPT";
+"script" = "KỊCH BẢN";
 
-"doubleClickShowPopup" = "Double Click Volumn-down To Show Panel";
+"doubleClickShowPopup" = "Bấm giảm âm 2 lần mở bảng";
