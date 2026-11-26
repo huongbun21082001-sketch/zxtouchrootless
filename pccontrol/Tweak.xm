@@ -33,6 +33,7 @@
 #include "AlertBox.h"
 #include "Popup.h"
 #include "FloatingButton.h"
+#include "PhotoImport.h"
 #include "Record.h"
 #include "Toast.h"
 #include "Play.h"
@@ -398,6 +399,7 @@ Boolean init()
 
             if (!init()) { return; }
             bunFloatingStart();
+            bunPhotoImportStart();
             [@"6-init-done" writeToFile:@"/var/mobile/d6.txt" atomically:YES encoding:NSUTF8StringEncoding error:nil];
 
             call_system("chown -R mobile:mobile /var/mobile/Library/ZXTouch");
