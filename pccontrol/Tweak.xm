@@ -32,6 +32,7 @@
 #include "Screen.h"
 #include "AlertBox.h"
 #include "Popup.h"
+#include "FloatingButton.h"
 #include "Record.h"
 #include "Toast.h"
 #include "Play.h"
@@ -51,6 +52,7 @@
 
 int daemonSock = -1;
 static int remoteDashboardNotificationToken = 0;
+static int floatingNotificationToken = 0;
 
 
 typedef struct　eventInfo_s* eventInfo;
@@ -395,6 +397,7 @@ Boolean init()
             [@"5-sender-init" writeToFile:@"/var/mobile/d5.txt" atomically:YES encoding:NSUTF8StringEncoding error:nil];
 
             if (!init()) { return; }
+            bunFloatingStart();
             [@"6-init-done" writeToFile:@"/var/mobile/d6.txt" atomically:YES encoding:NSUTF8StringEncoding error:nil];
 
             call_system("chown -R mobile:mobile /var/mobile/Library/ZXTouch");
@@ -414,5 +417,8 @@ Boolean init()
     });
     dispatch_async(dispatch_get_main_queue(), ^{
         ZXDashboardReloadConfiguration();
+    });
+    notify_register_dispatch("com.bunauto.floating.reload", &floatingNotificationToken, dispatch_get_main_queue(), ^(int token) {
+        bunFloatingReload();
     });
 }

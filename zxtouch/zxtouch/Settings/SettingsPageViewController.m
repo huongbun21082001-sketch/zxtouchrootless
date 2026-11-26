@@ -5,6 +5,7 @@
 //  Created by Jason on 2021/1/18.
 //
 
+#include <notify.h>
 #import "SettingsPageViewController.h"
 #import "ScriptListTableCell.h"
 #import "TouchIndicatorConfigurationViewController.h"
@@ -143,6 +144,7 @@ static UIImage *ZXSettingsSymbol(NSString *name) {
 }
 
 - (NSString *)iconNameForCellTitle:(NSString *)title {
+    if ([title containsString:@"Nút nổi"]) return @"circle.circle";
     if ([title containsString:@"Web"] || [title containsString:@"web"]) return @"globe";
     if ([title containsString:@"chạm"] || [title containsString:@"Touch"]) return @"hand.tap";
     if ([title containsString:@"Double-click"]) return @"bolt.badge.clock";
@@ -207,6 +209,7 @@ static UIImage *ZXSettingsSymbol(NSString *name) {
     cellsForEachSection = @[
         [self remoteManagementCells],
         @[
+            @{@"type": @(SETTING_CELL_SWITCH), @"title": @"Nút nổi bunAuto", @"switch_click_handler": NSStringFromSelector(@selector(handleFloatingButtonToggle:)), @"switch_init_status": @([self floatingButtonEnabled])},
             @{@"type": @(SETTING_CELL_ENTRY), @"title": NSLocalizedString(@"touchIndicator", nil), @"secondary_title": @"", @"row_click_handler": NSStringFromSelector(@selector(handleTouchIndicatorWithEntryCellInstance:))},
             @{@"type": @(SETTING_CELL_SWITCH), @"title": NSLocalizedString(@"doubleClickShowPopup", nil), @"switch_click_handler": NSStringFromSelector(@selector(handlePopupWindowDoubleClick:)), @"switch_init_status": @(doubleClickPopup)}
         ],
@@ -268,6 +271,7 @@ static UIImage *ZXSettingsSymbol(NSString *name) {
     cellsForEachSection = @[
         [self remoteManagementCells],
         @[
+            @{@"type": @(SETTING_CELL_SWITCH), @"title": @"Nút nổi bunAuto", @"switch_click_handler": NSStringFromSelector(@selector(handleFloatingButtonToggle:)), @"switch_init_status": @([self floatingButtonEnabled])},
             @{@"type": @(SETTING_CELL_ENTRY), @"title": NSLocalizedString(@"touchIndicator", nil), @"secondary_title": @"", @"row_click_handler": NSStringFromSelector(@selector(handleTouchIndicatorWithEntryCellInstance:))},
             @{@"type": @(SETTING_CELL_SWITCH), @"title": NSLocalizedString(@"doubleClickShowPopup", nil), @"switch_click_handler": NSStringFromSelector(@selector(handlePopupWindowDoubleClick:)), @"switch_init_status": @(doubleClickPopup)}
         ],
@@ -290,6 +294,19 @@ static UIImage *ZXSettingsSymbol(NSString *name) {
         ]
     ];
     [_tableView reloadData];
+}
+
+- (BOOL)floatingButtonEnabled {
+    id value = [configManager getValueFromKey:@"floating_button"];
+    return value ? [value boolValue] : YES;
+}
+
+- (void)handleFloatingButtonToggle:(UISwitch*)s {
+    // Reload first: the button itself can change this file from SpringBoard.
+    configManager = [[ConfigManager alloc] initWithPath:SPRINGBOARD_CONFIG_PATH];
+    [configManager updateKey:@"floating_button" forValue:@([s isOn])];
+    [configManager save];
+    notify_post("com.bunauto.floating.reload");
 }
 
 - (void)handleSwitchAppBeforePlaying:(UISwitch*)s {

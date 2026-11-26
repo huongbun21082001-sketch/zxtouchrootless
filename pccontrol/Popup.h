@@ -6,6 +6,7 @@
 @interface PopupWindow : NSObject
 - (void) show;
 - (void) hide;
+- (void) recordingStart;
 - (void) setDarkMode:(BOOL)dark;
 - (BOOL) isShown;
 @end
