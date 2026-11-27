@@ -71,6 +71,11 @@ NSString* performTextRecognizerTextFromRawData(UInt8* eventData, NSError** error
 
         // screen shot
         CGImageRef screenshot = [Screen createScreenShotCGImageRef];
+        if (!screenshot)
+        {
+            *error = [NSError errorWithDomain:@"com.zjx.zxtouchsp" code:999 userInfo:@{NSLocalizedDescriptionKey:@"-1;;Unable to capture screenshot\r\n"}];
+            return nil;
+        }
 
         int orientation = [Screen getScreenOrientation];
 
@@ -99,8 +104,8 @@ NSString* performTextRecognizerTextFromRawData(UInt8* eventData, NSError** error
             [ocrManager outputDebugImage:debugPath error:error];
         }
 
-        CFRelease(screenshot);
-        
+        CGImageRelease(screenshot);
+
         return result;
     }
     else if (task == TASK_GET_SUPPORTED_LANGUAGE_LIST)

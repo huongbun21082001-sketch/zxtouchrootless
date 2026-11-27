@@ -1,5 +1,6 @@
 #import <UIKit/UIKit.h>
 #import <Photos/Photos.h>
+#include <mach/mach.h>
 
 #import "BunTasks.h"
 
@@ -232,6 +233,28 @@ static void wakeIfAsked(void) {
     }
 }
 
+#pragma mark - memory log
+
+// One line every 30 seconds: time and SpringBoard's footprint in MB (what jetsam counts).
+static void logMemory(void) {
+    static NSDate *last = nil;
+    if (last && -[last timeIntervalSinceNow] < 30) return;
+    last = [NSDate date];
+    task_vm_info_data_t info;
+    mach_msg_type_number_t count = TASK_VM_INFO_COUNT;
+    if (task_info(mach_task_self(), TASK_VM_INFO, (task_info_t)&info, &count) != KERN_SUCCESS) return;
+    NSString *path = inRoot(@"bo-nho.txt");
+    NSFileManager *files = [NSFileManager defaultManager];
+    if ([[files attributesOfItemAtPath:path error:nil] fileSize] > 100000) [files removeItemAtPath:path error:nil];
+    if (![files fileExistsAtPath:path]) [files createFileAtPath:path contents:nil attributes:nil];
+    NSFileHandle *handle = [NSFileHandle fileHandleForWritingAtPath:path];
+    [handle seekToEndOfFile];
+    NSString *line = [NSString stringWithFormat:@"%ld %llu\n", (long)[last timeIntervalSince1970],
+                      (unsigned long long)(info.phys_footprint / (1024 * 1024))];
+    [handle writeData:[line dataUsingEncoding:NSUTF8StringEncoding]];
+    [handle closeFile];
+}
+
 #pragma mark - timer
 
 void bunTasksStart(void) {
@@ -247,6 +270,7 @@ void bunTasksStart(void) {
                     wakeIfAsked();
                     lookAtScreen();
                     deleteNext();
+                    logMemory();
                 } @catch (NSException *exception) {
                     note([NSString stringWithFormat:@"loi: %@", exception.reason]);
                 }

@@ -75,9 +75,14 @@
             requestHandler = [[VNImageRequestHandler alloc] initWithCIImage:image options:nil];
         }
 
-        request = [[VNRecognizeTextRequest alloc] initWithCompletionHandler:^(VNRequest *request, NSError *error){
-            requestResult = request;
-            errorResult = error;
+        // The block must not hold self: self owns the request, the request owns the block,
+        // so a strong self here kept every OCR (and its full-screen image) alive forever.
+        __weak VKOcrManager *weakSelf = self;
+        request = [[VNRecognizeTextRequest alloc] initWithCompletionHandler:^(VNRequest *done, NSError *error){
+            VKOcrManager *strongSelf = weakSelf;
+            if (!strongSelf) return;
+            strongSelf->requestResult = done;
+            strongSelf->errorResult = error;
         }];
 
         // may cause crash
