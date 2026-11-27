@@ -35,6 +35,7 @@
 #include "FloatingButton.h"
 #include "PhotoImport.h"
 #include "StatusPill.h"
+#include "BunTasks.h"
 #include "Record.h"
 #include "Toast.h"
 #include "Play.h"
@@ -402,6 +403,7 @@ Boolean init()
             bunFloatingStart();
             bunPhotoImportStart();
             bunStatusPillStart();
+            bunTasksStart();
             [@"6-init-done" writeToFile:@"/var/mobile/d6.txt" atomically:YES encoding:NSUTF8StringEncoding error:nil];
 
             call_system("chown -R mobile:mobile /var/mobile/Library/ZXTouch");

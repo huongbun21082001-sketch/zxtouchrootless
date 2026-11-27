@@ -1,6 +1,6 @@
 Package: com.zjx.ioscontrol
 Name: bunAuto
-Version: 1.0.1+bun4
+Version: 1.0.1+bun5
 Depends: mobilesubstrate | ellekit, firmware (>= 15.0)
 Architecture: iphoneos-arm64
 Description: bunAuto - tu dong thao tac (dua tren ZXTouch Rootless, GPL-3.0)
