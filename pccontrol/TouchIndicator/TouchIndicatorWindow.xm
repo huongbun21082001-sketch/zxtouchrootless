@@ -742,8 +742,10 @@ static void IOHIDEventCallbackForTouchIndicator(void* target, void* refcon, IOHI
 
         // create touch coordinate view
         NSString *coordinateText = [NSString stringWithFormat:@"(%d, %d)", (int)(x * scale), (int)(y * scale)];
-        UIFont *font = [UIFont fontWithName: @"Trebuchet MS" size: 11.0f];
-        CGSize stringSize = [coordinateText sizeWithFont:font]; 
+        // "Trebuchet MS" khong phai ten PostScript nen fontWithName tra ve nil tren iOS 16;
+        // sizeWithFont:nil tao tu dien co gia tri nil -> NSException -> SpringBoard crash -> Safe Mode.
+        UIFont *font = [UIFont fontWithName:@"TrebuchetMS" size:11.0f] ?: [UIFont systemFontOfSize:11.0f];
+        CGSize stringSize = [coordinateText sizeWithAttributes:@{NSFontAttributeName: font}];
         CGFloat stringWidth = stringSize.width;
 
         TouchIndicatorCoordinateView *coordinateLabelView = [[TouchIndicatorCoordinateView alloc] initWithFrame:CGRectMake(x + halfSize + 5, y, stringWidth+5, COORDINATE_VIEW_HEIGHT)];
@@ -754,17 +756,22 @@ static void IOHIDEventCallbackForTouchIndicator(void* target, void* refcon, IOHI
         coordinateLabel.text = coordinateText;
         [coordinateLabel setTextColor:[UIColor whiteColor]];
         [coordinateLabel setBackgroundColor:[UIColor clearColor]];
-        [coordinateLabel setFont:font]; 
-        [coordinateLabelView addSubview:coordinateLabel];
-        coordinateLabelView.coordinateLabel = coordinateLabel;
+        [coordinateLabel setFont:font];
+        @try {
+            [coordinateLabelView addSubview:coordinateLabel];
+            coordinateLabelView.coordinateLabel = coordinateLabel;
 
-        // add to list
-        touchIndicatorViewList[index-1] = indicator;
-        coordinateView[index-1] = showCoordinates ? coordinateLabelView : nil;
+            // add to list
+            touchIndicatorViewList[index-1] = indicator;
+            coordinateView[index-1] = showCoordinates ? coordinateLabelView : nil;
 
-        // add to subview
-        [_window addSubview:indicator];
-        if (showCoordinates) [_window addSubview:coordinateLabelView];
+            // add to subview
+            [_window addSubview:indicator];
+            if (showCoordinates) [_window addSubview:coordinateLabelView];
+        } @catch (NSException *error) {
+            // Vong tron cham chi de xem; loi o day khong duoc lam sap SpringBoard.
+            appendTouchIndicatorDebugLog([NSString stringWithFormat:@"showIndicator bo qua loi: %@\n", error.reason]);
+        }
 
         //[indicator setHidden:YES];
     });
@@ -808,8 +815,8 @@ static void IOHIDEventCallbackForTouchIndicator(void* target, void* refcon, IOHI
         touchIndicatorViewList[index-1].layer.cornerRadius = halfSize;
 
         NSString *coordinateText = [NSString stringWithFormat:@"(%d, %d)", (int)(x*scale), (int)(y*scale)];
-        UIFont *font = [UIFont fontWithName: @"Trebuchet MS" size: 11.0f];
-        CGSize stringSize = [coordinateText sizeWithFont:font]; 
+        UIFont *font = [UIFont fontWithName:@"TrebuchetMS" size:11.0f] ?: [UIFont systemFontOfSize:11.0f];
+        CGSize stringSize = [coordinateText sizeWithAttributes:@{NSFontAttributeName: font}];
         CGFloat stringWidth = stringSize.width;
 
         coordinateView[index-1].coordinateLabel.text = coordinateText;
