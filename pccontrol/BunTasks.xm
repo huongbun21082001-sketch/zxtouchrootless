@@ -110,6 +110,16 @@ static void lookAtScreen(void) {
                 lastDump = all;
                 note([NSString stringWithFormat:@"thay AirDrop (%@): %@", NSStringFromClass([window class]), all]);
             }
+            BOOL failed = [all.precomposedStringWithCanonicalMapping
+                              rangeOfString:@"thất bại".precomposedStringWithCanonicalMapping].location != NSNotFound
+                          || [all rangeOfString:@"failed" options:NSCaseInsensitiveSearch].location != NSNotFound;
+            UIView *dismiss = failed ? buttonNamed(texts, views, @[@"OK"]) : nil;
+            if (dismiss) {
+                note(@"dong bang AirDrop that bai");
+                lastDump = nil;
+                tapView(dismiss);
+                return;
+            }
             UIView *accept = buttonNamed(texts, views, @[@"Chấp nhận", @"Accept"]);
             if (accept) {
                 note(@"bam Chap nhan");
@@ -142,7 +152,12 @@ static PHAsset *videoMatching(NSString *name, long long size) {
             @try { bytes = [[resource valueForKey:@"fileSize"] longLongValue]; }
             @catch (NSException *exception) { continue; }
             // Both must match: the size alone or the name alone is not proof.
-            if (bytes == size && [resource.originalFilename caseInsensitiveCompare:name] == NSOrderedSame) return asset;
+            NSString *stored = nil;
+            @try { stored = [asset valueForKey:@"filename"]; }
+            @catch (NSException *exception) { stored = nil; }
+            if (bytes != size) continue;
+            if ([resource.originalFilename caseInsensitiveCompare:name] == NSOrderedSame) return asset;
+            if (stored && [stored caseInsensitiveCompare:name] == NSOrderedSame) return asset;
         }
     }
     return nil;
